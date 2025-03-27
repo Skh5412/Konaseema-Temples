@@ -392,3 +392,289 @@ body {
         margin-bottom: 0.5rem;
     }
 }
+
+
+/* Base Styles */
+:root {
+    --saffron: #FF9933;
+    --gold: #FFD700;
+    --deep-red: #CC0000;
+    --green: #138808;
+    --white: #FFFFFF;
+    --bg-color: #1E1E1E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--white);
+    overflow: hidden;
+}
+
+/* Telugu Font */
+@font-face {
+    font-family: 'Tiro Telugu';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/tirotelugu/v1/LhWnMVzRT6k6y3ZCNjDwT1X6Q7t6FQ.woff2) format('woff2');
+}
+
+/* Loader Wrapper */
+.loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 30, 30, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.traditional-loader {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Diya (Oil Lamp) Styles */
+.diya-container {
+    position: relative;
+    width: 100px;
+    height: 120px;
+    margin-bottom: 30px;
+}
+
+.diya {
+    position: absolute;
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(to right, #b87333, #daa520);
+    border-radius: 0 0 40px 40px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 20px rgba(218, 165, 32, 0.5);
+}
+
+.diya:before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(to right, #daa520, #b87333);
+    border-radius: 50%;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Flame Animation */
+.flame {
+    position: absolute;
+    width: 20px;
+    height: 40px;
+    background: linear-gradient(to top, var(--gold), var(--saffron), var(--deep-red));
+    border-radius: 50% 50% 20% 20%;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: blur(5px);
+    animation: flicker 2s ease-in-out infinite alternate;
+}
+
+.flame-reflection {
+    position: absolute;
+    width: 30px;
+    height: 10px;
+    background: rgba(255, 215, 0, 0.3);
+    border-radius: 50%;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* Om Symbol and Telugu Text */
+.om-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.om-symbol {
+    font-size: 4rem;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    margin-bottom: 10px;
+    animation: pulse 2s infinite alternate;
+}
+
+.telugu-text {
+    font-family: 'Tiro Telugu', serif;
+    font-size: 1.5rem;
+    color: var(--white);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Flowers Animation */
+.flowers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.flower {
+    position: absolute;
+    background: radial-gradient(circle, var(--gold) 0%, var(--saffron) 70%, transparent 100%);
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: float linear infinite;
+}
+
+.flower:nth-child(1) {
+    width: 15px;
+    height: 15px;
+    top: 20%;
+    left: 10%;
+    animation-duration: 15s;
+    animation-delay: 0s;
+}
+
+.flower:nth-child(2) {
+    width: 10px;
+    height: 10px;
+    top: 40%;
+    left: 80%;
+    animation-duration: 20s;
+    animation-delay: 3s;
+}
+
+.flower:nth-child(3) {
+    width: 12px;
+    height: 12px;
+    top: 70%;
+    left: 30%;
+    animation-duration: 18s;
+    animation-delay: 5s;
+}
+
+/* Rangoli Pattern */
+.rangoli-pattern {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: 
+        radial-gradient(circle at center, transparent 60%, rgba(255, 153, 51, 0.1) 60.5%, rgba(255, 153, 51, 0.1) 100%),
+        repeating-conic-gradient(from 0deg, transparent 0deg 15deg, rgba(255, 215, 0, 0.1) 15deg 30deg);
+    background-size: 100% 100%, 30px 30px;
+    opacity: 0.3;
+    bottom: -50px;
+    z-index: -1;
+    animation: rotate 20s linear infinite;
+}
+
+/* Content (hidden during loading) */
+.content {
+    display: none;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Animations */
+@keyframes flicker {
+    0%, 100% {
+        height: 40px;
+        opacity: 1;
+        filter: blur(5px);
+    }
+    25% {
+        height: 45px;
+        opacity: 0.9;
+        filter: blur(6px);
+    }
+    50% {
+        height: 35px;
+        opacity: 0.8;
+        filter: blur(4px);
+    }
+    75% {
+        height: 42px;
+        opacity: 0.95;
+        filter: blur(5.5px);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        opacity: 0.3;
+        width: 30px;
+    }
+    50% {
+        opacity: 0.5;
+        width: 35px;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .traditional-loader {
+        width: 250px;
+        height: 350px;
+    }
+    
+    .om-symbol {
+        font-size: 3rem;
+    }
+    
+    .telugu-text {
+        font-size: 1.2rem;
+    }
+}

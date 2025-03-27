@@ -83,3 +83,52 @@ document.querySelector('.subscribe-form').addEventListener('submit', function(e)
         // });
     }
 });
+
+// Wait for the page to load
+window.addEventListener('load', function() {
+    // Hide loader after 3-5 seconds (random for more natural feel)
+    const min = 3000;
+    const max = 5000;
+    const delay = Math.floor(Math.random() * (max - min + 1)) + min;
+    
+    setTimeout(function() {
+        // Fade out loader
+        document.querySelector('.loader-wrapper').style.opacity = '0';
+        
+        // Show content
+        document.querySelector('.content').style.display = 'block';
+        
+        // Remove loader from DOM after fade out
+        setTimeout(function() {
+            document.querySelector('.loader-wrapper').style.display = 'none';
+        }, 500);
+    }, delay);
+});
+
+// Additional effect: Make diya flame respond to mouse movement
+document.addEventListener('mousemove', function(e) {
+    const flame = document.querySelector('.flame');
+    if (!flame) return;
+    
+    const loader = document.querySelector('.loader-wrapper');
+    const loaderRect = loader.getBoundingClientRect();
+    const centerX = loaderRect.left + loaderRect.width / 2;
+    const centerY = loaderRect.top + loaderRect.height / 2;
+    
+    // Calculate angle between mouse and center of loader
+    const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+    
+    // Make flame lean towards mouse (subtle effect)
+    flame.style.transform = `translateX(-50%) rotate(${-angle * 0.2}rad)`;
+});
+
+// Play temple bell sound when loading starts (optional)
+function playBellSound() {
+    // This would require a bell sound file
+    // const bell = new Audio('temple-bell.mp3');
+    // bell.volume = 0.3;
+    // bell.play().catch(e => console.log('Auto-play prevented:', e));
+}
+
+// Initialize
+playBellSound();
