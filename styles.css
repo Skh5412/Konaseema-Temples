@@ -401,7 +401,8 @@ body {
     --deep-red: #CC0000;
     --green: #138808;
     --white: #FFFFFF;
-    --bg-color: #1E1E1E;
+    --bg-color: #1a1a2e;
+    --chakram-gold: rgba(255, 215, 0, 0.15);
 }
 
 * {
@@ -415,6 +416,7 @@ body {
     background-color: var(--bg-color);
     color: var(--white);
     overflow: hidden;
+    height: 100vh;
 }
 
 /* Telugu Font */
@@ -425,14 +427,14 @@ body {
     src: url(https://fonts.gstatic.com/s/tirotelugu/v1/LhWnMVzRT6k6y3ZCNjDwT1X6Q7t6FQ.woff2) format('woff2');
 }
 
-/* Loader Wrapper */
+/* Loader Wrapper - Fills entire screen */
 .loader-wrapper {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(30, 30, 30, 0.95);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(26, 26, 46, 0.95);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -440,10 +442,30 @@ body {
     transition: opacity 0.5s ease;
 }
 
+/* Sree Chakram Background */
+.sree-chakram {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+        /* Outer square */
+        linear-gradient(45deg, transparent 45%, var(--chakram-gold) 46%, var(--chakram-gold) 54%, transparent 55%),
+        linear-gradient(-45deg, transparent 45%, var(--chakram-gold) 46%, var(--chakram-gold) 54%, transparent 55%),
+        /* Circles */
+        radial-gradient(circle, transparent 60%, var(--chakram-gold) 60.5%, var(--chakram-gold) 62%, transparent 62.5%),
+        radial-gradient(circle, transparent 68%, var(--chakram-gold) 68.5%, var(--chakram-gold) 70%, transparent 70.5%),
+        /* Triangles */
+        conic-gradient(from 0deg at 50% 50%, var(--chakram-gold) 0deg 90deg, transparent 90deg 180deg, var(--chakram-gold) 180deg 270deg, transparent 270deg 360deg);
+    background-size: 100% 100%;
+    opacity: 0.3;
+    animation: rotate 60s linear infinite;
+}
+
 .traditional-loader {
     position: relative;
-    width: 300px;
-    height: 400px;
+    width: 100%;
+    max-width: 800px;
+    height: 450px; /* 16:9 aspect ratio */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -453,88 +475,93 @@ body {
 /* Diya (Oil Lamp) Styles */
 .diya-container {
     position: relative;
-    width: 100px;
-    height: 120px;
-    margin-bottom: 30px;
+    width: 120px;
+    height: 150px;
+    margin-bottom: 40px;
+    z-index: 2;
 }
 
 .diya {
     position: absolute;
-    width: 80px;
-    height: 40px;
+    width: 100px;
+    height: 50px;
     background: linear-gradient(to right, #b87333, #daa520);
-    border-radius: 0 0 40px 40px;
+    border-radius: 0 0 50px 50px;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: 0 0 20px rgba(218, 165, 32, 0.5);
+    box-shadow: 0 0 30px rgba(218, 165, 32, 0.7);
 }
 
 .diya:before {
     content: '';
     position: absolute;
-    width: 60px;
-    height: 20px;
+    width: 80px;
+    height: 25px;
     background: linear-gradient(to right, #daa520, #b87333);
     border-radius: 50%;
-    top: -10px;
+    top: -12px;
     left: 50%;
     transform: translateX(-50%);
 }
 
-/* Flame Animation */
+/* Enhanced Flame Animation */
 .flame {
     position: absolute;
-    width: 20px;
-    height: 40px;
+    width: 25px;
+    height: 60px;
     background: linear-gradient(to top, var(--gold), var(--saffron), var(--deep-red));
     border-radius: 50% 50% 20% 20%;
-    top: -40px;
+    top: -60px;
     left: 50%;
     transform: translateX(-50%);
-    filter: blur(5px);
-    animation: flicker 2s ease-in-out infinite alternate;
+    filter: blur(8px);
+    animation: flicker 1.5s ease-in-out infinite alternate;
+    box-shadow: 0 0 30px var(--saffron);
 }
 
 .flame-reflection {
     position: absolute;
-    width: 30px;
-    height: 10px;
-    background: rgba(255, 215, 0, 0.3);
+    width: 40px;
+    height: 15px;
+    background: rgba(255, 215, 0, 0.4);
     border-radius: 50%;
-    top: 10px;
+    top: 15px;
     left: 50%;
     transform: translateX(-50%);
-    animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 1.5s ease-in-out infinite alternate;
 }
 
 /* Om Symbol and Telugu Text */
 .om-container {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    z-index: 2;
 }
 
 .om-symbol {
-    font-size: 4rem;
+    font-size: 5rem;
     color: var(--gold);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-    margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+    margin-bottom: 15px;
     animation: pulse 2s infinite alternate;
 }
 
 .telugu-text {
     font-family: 'Tiro Telugu', serif;
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: var(--white);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    letter-spacing: 2px;
 }
 
-/* Flowers Animation */
+/* Enhanced Flowers Animation */
 .flowers {
     position: absolute;
     width: 100%;
     height: 100%;
     pointer-events: none;
+    z-index: 1;
 }
 
 .flower {
@@ -542,49 +569,53 @@ body {
     background: radial-gradient(circle, var(--gold) 0%, var(--saffron) 70%, transparent 100%);
     border-radius: 50%;
     opacity: 0.7;
+    filter: blur(1px);
     animation: float linear infinite;
 }
 
 .flower:nth-child(1) {
-    width: 15px;
-    height: 15px;
-    top: 20%;
+    width: 20px;
+    height: 20px;
+    top: 15%;
     left: 10%;
-    animation-duration: 15s;
+    animation-duration: 18s;
     animation-delay: 0s;
 }
 
 .flower:nth-child(2) {
-    width: 10px;
-    height: 10px;
-    top: 40%;
-    left: 80%;
-    animation-duration: 20s;
+    width: 15px;
+    height: 15px;
+    top: 30%;
+    left: 85%;
+    animation-duration: 22s;
     animation-delay: 3s;
 }
 
 .flower:nth-child(3) {
-    width: 12px;
-    height: 12px;
-    top: 70%;
-    left: 30%;
-    animation-duration: 18s;
+    width: 18px;
+    height: 18px;
+    top: 65%;
+    left: 15%;
+    animation-duration: 20s;
     animation-delay: 5s;
 }
 
-/* Rangoli Pattern */
-.rangoli-pattern {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    background: 
-        radial-gradient(circle at center, transparent 60%, rgba(255, 153, 51, 0.1) 60.5%, rgba(255, 153, 51, 0.1) 100%),
-        repeating-conic-gradient(from 0deg, transparent 0deg 15deg, rgba(255, 215, 0, 0.1) 15deg 30deg);
-    background-size: 100% 100%, 30px 30px;
-    opacity: 0.3;
-    bottom: -50px;
-    z-index: -1;
-    animation: rotate 20s linear infinite;
+.flower:nth-child(4) {
+    width: 12px;
+    height: 12px;
+    top: 75%;
+    left: 80%;
+    animation-duration: 25s;
+    animation-delay: 2s;
+}
+
+.flower:nth-child(5) {
+    width: 25px;
+    height: 25px;
+    top: 50%;
+    left: 50%;
+    animation-duration: 30s;
+    animation-delay: 7s;
 }
 
 /* Content (hidden during loading) */
@@ -597,35 +628,35 @@ body {
 /* Animations */
 @keyframes flicker {
     0%, 100% {
-        height: 40px;
+        height: 60px;
         opacity: 1;
-        filter: blur(5px);
+        filter: blur(8px);
     }
     25% {
-        height: 45px;
+        height: 65px;
         opacity: 0.9;
-        filter: blur(6px);
+        filter: blur(10px);
     }
     50% {
-        height: 35px;
+        height: 55px;
         opacity: 0.8;
-        filter: blur(4px);
+        filter: blur(6px);
     }
     75% {
-        height: 42px;
+        height: 62px;
         opacity: 0.95;
-        filter: blur(5.5px);
+        filter: blur(9px);
     }
 }
 
 @keyframes glow {
     0%, 100% {
-        opacity: 0.3;
-        width: 30px;
+        opacity: 0.4;
+        width: 40px;
     }
     50% {
-        opacity: 0.5;
-        width: 35px;
+        opacity: 0.6;
+        width: 45px;
     }
 }
 
@@ -633,10 +664,12 @@ body {
     0% {
         transform: scale(1);
         opacity: 0.8;
+        text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
     }
     100% {
         transform: scale(1.1);
         opacity: 1;
+        text-shadow: 0 0 25px rgba(255, 215, 0, 1);
     }
 }
 
@@ -663,18 +696,52 @@ body {
     }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .traditional-loader {
-        width: 250px;
-        height: 350px;
-    }
-    
+/* Windows Screen Optimization (16:9 aspect ratio) */
+@media (min-width: 1600px) {
     .om-symbol {
-        font-size: 3rem;
+        font-size: 6rem;
     }
     
     .telugu-text {
-        font-size: 1.2rem;
+        font-size: 2.5rem;
+    }
+    
+    .diya-container {
+        width: 150px;
+        height: 180px;
+    }
+    
+    .diya {
+        width: 120px;
+        height: 60px;
+        border-radius: 0 0 60px 60px;
+    }
+    
+    .flame {
+        width: 30px;
+        height: 80px;
+        top: -80px;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .traditional-loader {
+        height: 100vh;
+        max-width: 100%;
+    }
+    
+    .om-symbol {
+        font-size: 3.5rem;
+    }
+    
+    .telugu-text {
+        font-size: 1.5rem;
+    }
+    
+    .diya-container {
+        width: 80px;
+        height: 100px;
+        margin-bottom: 20px;
     }
 }

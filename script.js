@@ -86,7 +86,7 @@ document.querySelector('.subscribe-form').addEventListener('submit', function(e)
 
 // Wait for the page to load
 window.addEventListener('load', function() {
-    // Hide loader after 3-5 seconds (random for more natural feel)
+    // Hide loader after 3-5 seconds (random for natural feel)
     const min = 3000;
     const max = 5000;
     const delay = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -105,21 +105,38 @@ window.addEventListener('load', function() {
     }, delay);
 });
 
-// Additional effect: Make diya flame respond to mouse movement
+// Enhanced flame movement effect
 document.addEventListener('mousemove', function(e) {
     const flame = document.querySelector('.flame');
-    if (!flame) return;
-    
     const loader = document.querySelector('.loader-wrapper');
+    
+    if (!flame || !loader) return;
+    
     const loaderRect = loader.getBoundingClientRect();
     const centerX = loaderRect.left + loaderRect.width / 2;
     const centerY = loaderRect.top + loaderRect.height / 2;
     
-    // Calculate angle between mouse and center of loader
+    // Calculate angle and distance from center
     const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+    const distance = Math.sqrt(
+        Math.pow(e.clientX - centerX, 2) + 
+        Math.pow(e.clientY - centerY, 2)
+    );
+    const maxDistance = Math.max(loaderRect.width, loaderRect.height) / 2;
+    const normalizedDistance = Math.min(distance / maxDistance, 1);
     
-    // Make flame lean towards mouse (subtle effect)
-    flame.style.transform = `translateX(-50%) rotate(${-angle * 0.2}rad)`;
+    // Make flame lean towards mouse (more pronounced effect)
+    flame.style.transform = `
+        translateX(-50%) 
+        rotate(${-angle * 0.3}rad)
+        scale(${1 + normalizedDistance * 0.1})
+    `;
+    
+    // Adjust flame brightness based on distance
+    flame.style.filter = `
+        blur(${8 - normalizedDistance * 2}px)
+        brightness(${1 + normalizedDistance * 0.3})
+    `;
 });
 
 // Play temple bell sound when loading starts (optional)
@@ -132,3 +149,39 @@ function playBellSound() {
 
 // Initialize
 playBellSound();
+
+// Make flowers spawn continuously
+function spawnFlowers() {
+    const flowersContainer = document.querySelector('.flowers');
+    if (!flowersContainer) return;
+    
+    setInterval(() => {
+        if (document.querySelector('.loader-wrapper').style.opacity !== '0') {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            // Random properties
+            const size = Math.floor(Math.random() * 15) + 10;
+            const left = Math.floor(Math.random() * 90) + 5;
+            const duration = Math.floor(Math.random() * 20) + 15;
+            const delay = Math.floor(Math.random() * 10);
+            
+            flower.style.width = `${size}px`;
+            flower.style.height = `${size}px`;
+            flower.style.left = `${left}%`;
+            flower.style.top = '120%';
+            flower.style.animationDuration = `${duration}s`;
+            flower.style.animationDelay = `${delay}s`;
+            
+            flowersContainer.appendChild(flower);
+            
+            // Remove flower after animation completes
+            setTimeout(() => {
+                flower.remove();
+            }, duration * 1000);
+        }
+    }, 1000);
+}
+
+// Start flower spawning
+spawnFlowers();
